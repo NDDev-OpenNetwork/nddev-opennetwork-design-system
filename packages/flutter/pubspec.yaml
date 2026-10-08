@@ -1,6 +1,6 @@
 name: nddev_opennetwork_design_system
 description: Open NDDev OpenNetwork design tokens and Flutter theme primitives.
-version: 0.0.1-alpha.5
+version: 0.0.1-alpha.7
 repository: https://github.com/NDDev-OpenNetwork/nddev-opennetwork-design-system
 issue_tracker: https://github.com/NDDev-OpenNetwork/nddev-opennetwork-design-system/issues
 license: AGPL-3.0-only
