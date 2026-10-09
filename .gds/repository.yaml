@@ -1,0 +1,48 @@
+schema_version: 1
+repository:
+  id: "repo_01M4HDNR51ECNGY57VGMG1BSS2"
+  display_name: "nddev-opennetwork-design-system"
+  roles:
+    - "project"
+  lifecycle: "active"
+provider:
+  type: "github"
+  installation: "installation:github-opennetwork"
+  repository_id: 1411020218
+  owner: "NDDev-OpenNetwork"
+  name: "nddev-opennetwork-design-system"
+classification:
+  portfolios:
+    - "portfolio:nddev-opennetwork"
+  visibility_contract: "public"
+  data_classification: "public"
+product:
+  purpose: "Open AGPL-3.0-only design system for NDDev OpenNetwork products: machine-readable tokens and generated Flutter theme primitives consumed by nddev-device-sync and self-hostable modules."
+  capabilities:
+    - "Neutral machine-readable design tokens"
+    - "Generated Flutter theme primitives"
+  entrypoints:
+    - change: "module identity and version"
+      path: "module.yaml"
+    - change: "what this repository is and may do"
+      path: "README.md"
+policy:
+  profiles:
+    - "repository-default"
+    - "opennetwork-default"
+  rollout_ring: "standard"
+git:
+  default_branch: "main"
+  integration: "pull-request"
+  branch_model: "task-branches"
+  handoff_pr: "preferred"
+  cleanup: "merged-only"
+agent:
+  context_profile: "project-default"
+  generated_agents: false
+  serena:
+    enabled: true
+    provenance_required: true
+release:
+  mode: "version-tag"
+  tag_style: "v-semver"
