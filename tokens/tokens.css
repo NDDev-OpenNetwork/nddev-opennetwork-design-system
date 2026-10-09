@@ -1,3 +1,4 @@
+/* Generated from tokens/tokens.json; run just tokens. Do not edit. */
 :root {
   --on-color-space-950: #070a12;
   --on-color-space-900: #0b1020;
@@ -23,5 +24,9 @@
   --on-radius-md: 10px;
   --on-radius-lg: 16px;
   --on-radius-pill: 999px;
+  --on-typography-font-family: Inter, system-ui, sans-serif;
+  --on-typography-mono-family: JetBrains Mono, ui-monospace, monospace;
+  --on-typography-body-size: 14px;
+  --on-typography-body-line-height: 1.45;
+  --on-typography-heading-size: 24px;
 }
-
