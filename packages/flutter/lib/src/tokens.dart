@@ -1,3 +1,5 @@
+// Generated from tokens/tokens.json; run just tokens. Do not edit.
+
 import 'package:flutter/material.dart';
 
 abstract final class OpenNetworkColors {
@@ -24,4 +26,23 @@ abstract final class OpenNetworkSpacing {
   static const six = 24.0;
   static const eight = 32.0;
   static const twelve = 48.0;
+}
+
+abstract final class OpenNetworkRadii {
+  static const sm = 6.0;
+  static const md = 10.0;
+  static const lg = 16.0;
+  static const pill = 999.0;
+}
+
+abstract final class OpenNetworkTypography {
+  static const fontFamily = <String>['Inter', 'system-ui', 'sans-serif'];
+  static const monoFamily = <String>[
+    'JetBrains Mono',
+    'ui-monospace',
+    'monospace',
+  ];
+  static const bodySize = 14.0;
+  static const bodyLineHeight = 1.45;
+  static const headingSize = 24.0;
 }

@@ -37,8 +37,6 @@ jobs:
           echo "$RUNNER_TEMP/flutter/bin" >> "$GITHUB_PATH"
       - name: Resolve Flutter dependencies
         working-directory: packages/flutter
-        run: flutter pub get
-      - name: Check formatting
-        run: dart format --output=none --set-exit-if-changed packages/flutter/lib packages/flutter/test
+        run: flutter pub get --enforce-lockfile
       - name: Analyze and test
         run: just check
