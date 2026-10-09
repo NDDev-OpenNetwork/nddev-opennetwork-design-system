@@ -6,11 +6,13 @@ default:
 format:
     dart format packages/flutter/lib packages/flutter/test
 
+fmt-check:
+    dart format --output=none --set-exit-if-changed packages/flutter/lib packages/flutter/test
+
 analyze:
-    flutter analyze packages/flutter
+    cd packages/flutter && flutter analyze
 
 test:
-    flutter test packages/flutter/test
+    cd packages/flutter && flutter test
 
-check: analyze test
-
+check: fmt-check analyze test
