@@ -25,10 +25,16 @@ jobs:
       - uses: extractions/setup-just@f8a3cce218d9f83db3a2ecd90e41ac3de6cdfd9b # v3
         with:
           just-version: '1.58.0'
-      - uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2
-        with:
-          flutter-version: '3.47.7'
-          channel: stable
+      - name: Install verified Flutter SDK
+        shell: bash
+        run: |
+          flutter_archive="$RUNNER_TEMP/flutter-sdk.tar.xz"
+          curl --fail --show-error --location --retry 2 --max-time 300 \
+            https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_3.47.7-stable.tar.xz \
+            --output "$flutter_archive"
+          echo "af7455f540df951184c7953fbe3cf884766e7541dacf8571f9f582db03dd6230  $flutter_archive" | sha256sum --check -
+          tar -xf "$flutter_archive" -C "$RUNNER_TEMP"
+          echo "$RUNNER_TEMP/flutter/bin" >> "$GITHUB_PATH"
       - name: Resolve Flutter dependencies
         working-directory: packages/flutter
         run: flutter pub get
