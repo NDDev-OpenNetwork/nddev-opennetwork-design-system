@@ -32,7 +32,11 @@ tools/requirements-icons.txt` in an isolated environment. From a committed DS
 source, `python3 tools/generate_launchers.py --desktop /path/to/desktop --mobile
 /path/to/mobile` renders required native images and records source/input/output
 SHA-256 provenance. Byte generation and `--check` use the canonical Linux x86_64
-renderer: CPython 3.14.4, Pillow 12.1.1 and its zlib 1.3.1 backend. Other Pillow
+renderer: CPython 3.14.4, Pillow 12.1.1 and its zlib 1.3.1 backend. Linux wheels
+link the host zlib; `bash tools/with-renderer-zlib.sh <command>` builds the
+checksum-pinned upstream backend in a temporary prefix for one command, then
+removes that prefix. It does not replace system libraries. CI uses this wrapper
+for generation checks. Other Pillow
 wheels may encode identical pixels with different compression. Every target runs
 `--verify` to check the committed asset inventory, bytes and immutable source/input/
 renderer provenance without requiring Pillow. CI also retains strict Linux byte
