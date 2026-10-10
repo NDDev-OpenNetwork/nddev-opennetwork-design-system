@@ -44,4 +44,4 @@ jobs:
         working-directory: packages/flutter
         run: flutter pub get --enforce-lockfile
       - name: Analyze and test
-        run: just check
+        run: bash tools/with-renderer-zlib.sh just check
