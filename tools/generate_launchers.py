@@ -4,23 +4,35 @@ import argparse
 import hashlib
 import io
 import json
+import platform
 from pathlib import Path
 import subprocess
 import xml.etree.ElementTree as ET
 
-import PIL
-from PIL import Image, ImageDraw
-
 ROOT = Path(__file__).resolve().parents[1]
 INPUTS = ['assets/nddev-mark.svg', 'assets/brand-source.json', 'tokens/tokens.json', 'tools/generate_launchers.py']
 RENDERER_VERSION = '12.1.1'
+CANONICAL_RENDERER = {'platform': 'Linux-x86_64', 'python': '3.14.4',
+                      'pillow': RENDERER_VERSION, 'zlib': '1.3.1'}
 
 
 def digest(data):
     return hashlib.sha256(data).hexdigest()
 
 
+def require_renderer():
+    import PIL
+    from PIL import features
+    actual = {'platform': platform.system() + '-' + platform.machine(),
+              'python': platform.python_version(), 'pillow': PIL.__version__,
+              'zlib': features.version('zlib')}
+    if actual != CANONICAL_RENDERER:
+        raise ValueError('Byte regeneration requires the canonical renderer: ' + str(CANONICAL_RENDERER))
+
+
 def render(size):
+    import PIL
+    from PIL import Image, ImageDraw
     if PIL.__version__ != RENDERER_VERSION:
         raise ValueError('Install the pinned requirements-icons.txt renderer')
     if not 16 <= size <= 1024:
@@ -62,28 +74,61 @@ def png(size):
     return output.getvalue()
 
 
-def assets(root, platform):
-    if f'id: {platform}\n' not in (root / 'module.yaml').read_text():
+def asset_sizes(root, target):
+    if f'id: {target}\n' not in (root / 'module.yaml').read_text():
         raise ValueError('Destination is not the declared NDS runner repository')
     result = {}
-    apple = 'macos' if platform == 'desktop' else 'ios'
+    apple = 'macos' if target == 'desktop' else 'ios'
     icons = Path(apple) / 'Runner/Assets.xcassets/AppIcon.appiconset'
-    for item in json.loads((root / icons / 'Contents.json').read_text())['images']:
+    entries = json.loads((root / icons / 'Contents.json').read_text())['images']
+    if len(entries) > 64:
+        raise ValueError('Unbounded launcher manifest')
+    for item in entries:
         if 'filename' not in item:
             continue
         if Path(item['filename']).name != item['filename'] or not item['filename'].endswith('.png'):
             raise ValueError('Expected a local PNG filename in the launcher manifest')
         size = round(float(item['size'].split('x')[0]) * float(item['scale'].removesuffix('x')))
-        result[str(icons / item['filename'])] = png(size)
-    if platform == 'desktop':
-        output = io.BytesIO()
-        render(256).save(output, format='ICO', sizes=[(v, v) for v in [16, 24, 32, 48, 64, 128, 256]])
-        result['windows/runner/resources/app_icon.ico'] = output.getvalue()
-        result['linux/runner/resources/app_icon.png'] = png(256)
+        name = str(icons / item['filename']).replace('\\', '/')
+        if not 16 <= size <= 1024 or name in result and result[name] != size:
+            raise ValueError('Invalid or conflicting launcher dimensions')
+        result[name] = size
+    if target == 'desktop':
+        result['windows/runner/resources/app_icon.ico'] = 256
+        result['linux/runner/resources/app_icon.png'] = 256
     else:
         for density, size in [('mdpi', 48), ('hdpi', 72), ('xhdpi', 96), ('xxhdpi', 144), ('xxxhdpi', 192)]:
-            result[f'android/app/src/main/res/mipmap-{density}/ic_launcher.png'] = png(size)
+            result[f'android/app/src/main/res/mipmap-{density}/ic_launcher.png'] = size
     return result
+
+
+def assets(root, target):
+    require_renderer()
+    result = {}
+    for name, size in asset_sizes(root, target).items():
+        if name.endswith('.ico'):
+            output = io.BytesIO()
+            render(size).save(output, format='ICO', sizes=[(v, v) for v in [16, 24, 32, 48, 64, 128, 256]])
+            result[name] = output.getvalue()
+        else:
+            result[name] = png(size)
+    return result
+
+
+def verify(root, target, source):
+    record = json.loads((root / 'generated/launcher-provenance.json').read_text())
+    names = set(asset_sizes(root, target))
+    if set(record) != {'source', 'files_sha256'} or record['source'] != source:
+        raise ValueError('Launcher source/input/renderer provenance differs')
+    if set(record['files_sha256']) != names:
+        raise ValueError('Launcher inventory differs from its provenance')
+    for name in names:
+        path = root / name
+        if not path.is_file() or path.stat().st_size > 8 * 1024 * 1024:
+            raise ValueError('Launcher asset is missing or exceeds its bound')
+        if digest(path.read_bytes()) != record['files_sha256'][name]:
+            raise ValueError('Committed launcher bytes differ: ' + name)
+    return len(names)
 
 
 def source_identity():
@@ -96,14 +141,16 @@ def source_identity():
             raise ValueError('Launcher generation requires committed canonical inputs')
         hashes[name] = digest(content)
     return {'repository': 'NDDev-OpenNetwork/nddev-opennetwork-design-system',
-            'commit': commit, 'inputs_sha256': hashes, 'pillow_version': RENDERER_VERSION}
+            'commit': commit, 'inputs_sha256': hashes, 'renderer': CANONICAL_RENDERER}
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--desktop', type=Path)
     parser.add_argument('--mobile', type=Path)
-    parser.add_argument('--check', action='store_true')
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument('--check', action='store_true', help='Strict canonical Linux byte regeneration')
+    mode.add_argument('--verify', action='store_true', help='Verify committed source/input/output SHA on any host')
     args = parser.parse_args()
     if not args.desktop and not args.mobile:
         parser.error('An existing desktop or mobile runner repository is required')
@@ -111,6 +158,10 @@ def main():
     for platform in ['desktop', 'mobile']:
         root = getattr(args, platform)
         if root is None:
+            continue
+        if args.verify:
+            count = verify(root, platform, source)
+            print(f'{platform}: {count} committed launcher assets and canonical provenance verified')
             continue
         generated = assets(root, platform)
         record = {'source': source, 'files_sha256': {name: digest(data) for name, data in sorted(generated.items())}}
