@@ -27,7 +27,7 @@ def require_renderer():
               'python': platform.python_version(), 'pillow': PIL.__version__,
               'zlib': features.version('zlib')}
     if actual != CANONICAL_RENDERER:
-        raise ValueError('Byte regeneration requires the canonical renderer: ' + str(CANONICAL_RENDERER))
+        raise ValueError('Byte regeneration requires the canonical renderer: ' + str(CANONICAL_RENDERER) + '; actual: ' + str(actual))
 
 
 def render(size):
