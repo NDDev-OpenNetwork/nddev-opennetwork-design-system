@@ -10,7 +10,7 @@ import subprocess
 import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[1]
-INPUTS = ['assets/nddev-mark.svg', 'assets/brand-source.json', 'tokens/tokens.json',
+INPUTS = ['.gitattributes', 'assets/nddev-mark.svg', 'assets/brand-source.json', 'tokens/tokens.json',
           'tools/generate_launchers.py', 'tools/requirements-icons.txt', 'tools/with-renderer-zlib.sh']
 RENDERER_VERSION = '12.1.1'
 CANONICAL_RENDERER = {'platform': 'Linux-x86_64', 'python': '3.14.4',

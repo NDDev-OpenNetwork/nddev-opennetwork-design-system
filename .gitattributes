@@ -1,2 +1,3 @@
+* text=auto eol=lf
 # Preserve the upstream OFL payload exactly for its recorded SHA-256.
 packages/flutter/assets/fonts/OFL.txt -text
