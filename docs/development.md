@@ -21,3 +21,15 @@ Central `v0.0.1-alpha.8` (`c73a525`) changes assembly catalog metadata only;
 the normative `standarts/` files are identical. The older lock is compatible
 with the current assembly. Update locks only through the canonical source
 release, not through a mutable branch.
+
+The canonical NDDev mark in `assets/nddev-mark.svg` comes from the public
+OpenNetwork header at https://nddev.ai/opennetwork/en; `brand-source.json`
+records its reviewed geometry digest. Launcher colors remain existing design
+tokens. This asset-only addition is compatible with the unchanged alpha.7 lock.
+
+Install the pinned renderer with `python3 -m pip install --require-hashes -r
+tools/requirements-icons.txt` in an isolated environment. From a committed DS
+source, `python3 tools/generate_launchers.py --desktop /path/to/desktop --mobile
+/path/to/mobile` renders required native images and records source/input/output
+SHA-256 provenance. Add `--check` to reject drift. Do not copy or redraw the SVG
+in consumers. The renderer is a development tool, not a runtime dependency.
