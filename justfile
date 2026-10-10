@@ -5,9 +5,11 @@ default:
 
 tokens:
     python3 tools/generate_tokens.py
+    python3 tools/generate_brand.py
 
 tokens-check:
     python3 tools/generate_tokens.py --check
+    python3 tools/generate_brand.py --check
     python3 -B -m unittest discover -s tools
 
 dependencies:

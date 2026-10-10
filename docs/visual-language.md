@@ -1,15 +1,19 @@
 # OpenNetwork visual language
 
-The system describes devices, servers and telemetry as an observable network:
-dark space surfaces provide hierarchy, cyan and violet accents identify active
-paths and modules, and restrained star/constellation motifs explain
-relationships without becoming decoration over operational information.
+Use the platform's OpenNetwork direction, not an independently themed NDS skin.
+The bright yellow brand, gold controls, neutral surfaces, IBM Plex Sans and
+authentic mark come from the recorded platform source. Dark and light palettes
+have separate text, fill, heading, outline and status roles; a decorative brand
+color must not replace a contrast-corrected text role.
 
 Use the public tokens from `tokens/tokens.json`. Every status has text, icon and
 color; color is never the only signal. Focus states, keyboard navigation,
 contrast and reduced-motion behavior are required for all components.
 
-Generated images must be original, carry no private estate data and preserve
-the NDDev OpenNetwork name and `https://nddev.ai` attribution when used in
-product surfaces.
+The Flutter kit maps primary/secondary/quiet buttons, fields/selects, cards,
+menus, navigation and chips onto native semantics. It retains the platform's
+geometry and states without copying marketing pages or web layout machinery.
+Controls use at least the native 48 px target; natural height grows with text
+scale. Disabled buttons are hollow and non-interactive; errors retain text.
+Product layouts own their content and composition, never independent tokens.
 

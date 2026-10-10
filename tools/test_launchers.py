@@ -10,9 +10,9 @@ class LauncherContract(unittest.TestCase):
                 image = render(size)
                 self.assertEqual(image.size, (size, size))
                 self.assertEqual(image.mode, 'RGB')
-                self.assertEqual(image.getpixel((0, 0)), (7, 10, 18))
+                self.assertEqual(image.getpixel((0, 0)), (0, 0, 0))
                 # Small launcher sizes retain contrast without filling the background.
-                foreground = [pixel for pixel in image.get_flattened_data() if pixel[0] > 50 and pixel[1] > 100 and pixel[2] > 150]
+                foreground = [pixel for pixel in image.get_flattened_data() if pixel[0] > 200 and pixel[1] > 150 and pixel[2] < 100]
                 self.assertGreater(len(foreground), size * size // 20)
                 self.assertLess(len(foreground), size * size // 2)
                 self.assertEqual(Image.open(io.BytesIO(png(size))).size, (size, size))
