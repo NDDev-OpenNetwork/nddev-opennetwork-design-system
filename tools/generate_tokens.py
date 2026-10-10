@@ -9,15 +9,16 @@ import re
 
 ROOT = Path(__file__).resolve().parents[1]
 GROUPS = {
-    "color": "Colors",
     "space": "Spacing",
     "radius": "Radii",
+    "size": "Sizes",
     "typography": "Typography",
+    "motion": "Motion",
 }
 # Preserve the published spacing names.
 SPACING_NAMES = {
-    "1": "one", "2": "two", "3": "three", "4": "four",
-    "6": "six", "8": "eight", "12": "twelve",
+    "0": "zero", "1": "one", "2": "two", "3": "three", "4": "four",
+    "6": "six", "8": "eight", "12": "twelve", "16": "sixteen", "24": "twentyFour",
 }
 
 
@@ -44,11 +45,34 @@ def project(token):
 
 
 def render(data):
-    if set(data) - {"$schema"} != set(GROUPS):
-        raise ValueError("Expected color, space, radius and typography groups")
+    if set(data) - {"$schema", "$extensions", "color", "light-color"} != set(GROUPS):
+        raise ValueError("Unexpected token groups")
+    if set(data['color']) != set(data['light-color']):
+        raise ValueError("Both themes must implement the same color roles")
     notice = "Generated from tokens/tokens.json; run just tokens. Do not edit."
-    css = [f"/* {notice} */", ":root {"]
+    css = [f"/* {notice} */"]
     dart = [f"// {notice}", "", "import 'package:flutter/material.dart';", ""]
+    dart.extend(['class OpenNetworkPalette {', '  const OpenNetworkPalette({'])
+    for name in data['color']:
+        dart.append(f'    required this.{identifier("color", name)},')
+    dart.append('  });')
+    for name in data['color']:
+        dart.append(f'  final Color {identifier("color", name)};')
+    dart.extend(['}', '', 'abstract final class OpenNetworkColors {'])
+    for group, theme, selector in [('color', 'dark', ":root, [data-theme='dark']"),
+                                   ('light-color', 'light', "[data-theme='light']")]:
+        css.append(selector + ' {')
+        dart.append(f'  static const {theme} = OpenNetworkPalette(')
+        for name, token in data[group].items():
+            if not re.fullmatch(r'[a-z]+(?:-[a-z]+)*', name) or token['$type'] != 'color':
+                raise ValueError('Invalid color role')
+            css_value, dart_value = project(token)
+            css.append(f'  --on-color-{name}: {css_value};')
+            dart.append(f'    {identifier(group, name)}: {dart_value},')
+        css.extend(['}', ''])
+        dart.append('  );')
+    dart.extend(['}', ''])
+    css.append(':root {')
     for group, class_name in GROUPS.items():
         dart.append(f"abstract final class OpenNetwork{class_name} {{")
         names = set()
