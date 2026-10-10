@@ -35,6 +35,11 @@ jobs:
           echo "af7455f540df951184c7953fbe3cf884766e7541dacf8571f9f582db03dd6230  $flutter_archive" | sha256sum --check -
           tar -xf "$flutter_archive" -C "$RUNNER_TEMP"
           echo "$RUNNER_TEMP/flutter/bin" >> "$GITHUB_PATH"
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.14.4'
+      - name: Install pinned launcher renderer
+        run: python3 -m pip install --require-hashes -r tools/requirements-icons.txt
       - name: Resolve Flutter dependencies
         working-directory: packages/flutter
         run: flutter pub get --enforce-lockfile

@@ -1,0 +1,8 @@
+{
+  "source_url": "https://nddev.ai/opennetwork/en",
+  "source_element": "a.nd-brand svg.nd-brand-mark",
+  "geometry": "Original three polygons and viewBox; standalone SVG namespace added.",
+  "svg_sha256": "3997b08aa3c47d0d5827484db657c8e18a53dc0a00e1a875cc57eb931c6f4877",
+  "foreground_token": "color.accent-cyan",
+  "background_token": "color.space-950"
+}
