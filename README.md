@@ -34,7 +34,7 @@ Flutter formatting, analysis and theme tests. Use Flutter 3.47.7 with Dart
 3.13.5 and `just dependencies` to enforce the committed dependency lock.
 Themes style native Material buttons, fields/selects, cards, menus, navigation,
 chips, progress, selection and focus. `OpenNetworkBrand` shares the authentic
-geometry and direction lockup. IBM's unmodified TTF files are bundled with
+geometry and direction lockup. Unmodified TTF files matching the platform's Google Fonts revision are bundled with
 OFL-1.1 and their source hashes; there is no runtime font download. Widget tests
 exercise real controls, both themes, text scaling and contrast; they do not
 substitute for native target build or device acceptance.
