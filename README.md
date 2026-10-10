@@ -4,11 +4,10 @@ The open design system for NDDev OpenNetwork products. It is a public,
 AGPL-3.0-only repository designed to be consumed by
 `nddev-device-sync` and its self-hostable modules.
 
-The system provides neutral, machine-readable tokens and generated Flutter
-theme primitives. It uses the NDDev OpenNetwork name, links to
-https://nddev.ai, deep observatory surfaces and restrained space accents. The
-tokens contain no corporate topology, private campaign data or estate-specific
-configuration.
+The system projects the NDDev platform's OpenNetwork direction into Flutter:
+yellow/gold accent roles, neutral dark/light surfaces, bundled IBM Plex Sans,
+native controls and the authentic NDDev mark. It retains https://nddev.ai and
+contains no private platform configuration or content.
 
 ## Packages
 
@@ -25,13 +24,20 @@ The Flutter package is consumed by desktop and mobile clients as a pinned
 version. A product may add local instance information and contact details, but
 the NDDev OpenNetwork attribution and `https://nddev.ai` link remain present.
 
-Edit `tokens/tokens.json`, then run `just tokens` to regenerate CSS and Dart
-with Python's standard library. `just check` rejects projection drift and runs
+`tokens/tokens.json` is the versioned public OpenNetwork export. Refresh it with
+`python3 tools/import_platform.py /path/to/reviewed/platform`, then run `just tokens`
+to regenerate CSS, Dart and native mark geometry. The importer exports only the
+OpenNetwork direction and records immutable source/input hashes. Its `--check`
+compares the export without writing or requiring platform files in consumer CI.
+`just check` rejects projection drift and runs
 Flutter formatting, analysis and theme tests. Use Flutter 3.47.7 with Dart
 3.13.5 and `just dependencies` to enforce the committed dependency lock.
-The theme uses native Material widgets and platform font fallback; it does not
-download fonts. Widget tests exercise text scaling and contrast, not target
-platform build or device acceptance.
+Themes style native Material buttons, fields/selects, cards, menus, navigation,
+chips, progress, selection and focus. `OpenNetworkBrand` shares the authentic
+geometry and direction lockup. IBM's unmodified TTF files are bundled with
+OFL-1.1 and their source hashes; there is no runtime font download. Widget tests
+exercise real controls, both themes, text scaling and contrast; they do not
+substitute for native target build or device acceptance.
 
 ## License
 

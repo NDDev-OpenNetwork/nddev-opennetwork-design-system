@@ -16,16 +16,16 @@ central standards.
 
 ## Standards compatibility
 
-The module standards lock remains at `v0.0.1-alpha.7` (`592531d`).
-Central `v0.0.1-alpha.8` (`c73a525`) changes assembly catalog metadata only;
-the normative `standarts/` files are identical. The older lock is compatible
-with the current assembly. Update locks only through the canonical source
-release, not through a mutable branch.
+The baseline is central `v0.0.1-alpha.9`; `standarts.lock` separately pins the
+owner-approved visual amendment (ADR 0004). Existing tags are not reinterpreted.
+The alpha.8 design package replaces the independently invented palette and token
+names. Consumers update their immutable source pin and launcher provenance together.
 
 The canonical NDDev mark in `assets/nddev-mark.svg` comes from the public
 OpenNetwork header at https://nddev.ai/opennetwork/en; `brand-source.json`
-records its reviewed geometry digest. Launcher colors remain existing design
-tokens. This asset-only addition is compatible with the unchanged alpha.7 lock.
+records its reviewed geometry digest. Launcher colors use the canonical
+OpenNetwork brand and base surface. The native in-app path is generated from
+the same SVG; no consumer redraws or recolors an independent copy.
 
 Install the pinned renderer with `python3 -m pip install --require-hashes -r
 tools/requirements-icons.txt` in an isolated environment. From a committed DS

@@ -2,23 +2,160 @@
 
 import 'package:flutter/material.dart';
 
+class OpenNetworkPalette {
+  const OpenNetworkPalette({
+    required this.surfaceBase,
+    required this.surfaceRaised,
+    required this.surfaceSunken,
+    required this.surfaceOverlay,
+    required this.textPrimary,
+    required this.textSecondary,
+    required this.textTertiary,
+    required this.borderSubtle,
+    required this.borderControl,
+    required this.borderStrong,
+    required this.focusRing,
+    required this.statusSuccessText,
+    required this.statusSuccessBorder,
+    required this.statusSuccessSubtle,
+    required this.statusWarningText,
+    required this.statusWarningBorder,
+    required this.statusWarningSubtle,
+    required this.statusDangerText,
+    required this.statusDangerBorder,
+    required this.statusDangerSubtle,
+    required this.statusInfoText,
+    required this.statusInfoBorder,
+    required this.statusInfoSubtle,
+    required this.accentBrand,
+    required this.accentText,
+    required this.accentHeading,
+    required this.accentFill,
+    required this.accentFillHover,
+    required this.accentFillActive,
+    required this.accentOnFill,
+    required this.accentBorder,
+    required this.accentOutline,
+    required this.accentLabel,
+    required this.accentEdge,
+    required this.accentSubtle,
+  });
+  final Color surfaceBase;
+  final Color surfaceRaised;
+  final Color surfaceSunken;
+  final Color surfaceOverlay;
+  final Color textPrimary;
+  final Color textSecondary;
+  final Color textTertiary;
+  final Color borderSubtle;
+  final Color borderControl;
+  final Color borderStrong;
+  final Color focusRing;
+  final Color statusSuccessText;
+  final Color statusSuccessBorder;
+  final Color statusSuccessSubtle;
+  final Color statusWarningText;
+  final Color statusWarningBorder;
+  final Color statusWarningSubtle;
+  final Color statusDangerText;
+  final Color statusDangerBorder;
+  final Color statusDangerSubtle;
+  final Color statusInfoText;
+  final Color statusInfoBorder;
+  final Color statusInfoSubtle;
+  final Color accentBrand;
+  final Color accentText;
+  final Color accentHeading;
+  final Color accentFill;
+  final Color accentFillHover;
+  final Color accentFillActive;
+  final Color accentOnFill;
+  final Color accentBorder;
+  final Color accentOutline;
+  final Color accentLabel;
+  final Color accentEdge;
+  final Color accentSubtle;
+}
+
 abstract final class OpenNetworkColors {
-  static const space950 = Color(0xFF070A12);
-  static const space900 = Color(0xFF0B1020);
-  static const surface800 = Color(0xFF111A2E);
-  static const surface700 = Color(0xFF182541);
-  static const text100 = Color(0xFFF5F7FB);
-  static const text300 = Color(0xFFC7D1E2);
-  static const text500 = Color(0xFF8D9AB2);
-  static const accentCyan = Color(0xFF58D6FF);
-  static const accentViolet = Color(0xFF9C7BFF);
-  static const statusSuccess = Color(0xFF4EE6A3);
-  static const statusWarning = Color(0xFFFFC857);
-  static const statusDanger = Color(0xFFFF6B7A);
-  static const focusRing = Color(0xFFA6E9FF);
+  static const dark = OpenNetworkPalette(
+    surfaceBase: Color(0xFF000000),
+    surfaceRaised: Color(0xFF050506),
+    surfaceSunken: Color(0xFF08090B),
+    surfaceOverlay: Color(0xFF101217),
+    textPrimary: Color(0xFFFFFFFF),
+    textSecondary: Color(0xFFA2A6AF),
+    textTertiary: Color(0xFF8C919B),
+    borderSubtle: Color(0xFF141414),
+    borderControl: Color(0xFF6E6E6E),
+    borderStrong: Color(0xFFA2A6AF),
+    focusRing: Color(0xFFFFFFFF),
+    statusSuccessText: Color(0xFF2FBF71),
+    statusSuccessBorder: Color(0xFF2FBF71),
+    statusSuccessSubtle: Color(0xFF081F12),
+    statusWarningText: Color(0xFFE0A100),
+    statusWarningBorder: Color(0xFFE0A100),
+    statusWarningSubtle: Color(0xFF241A00),
+    statusDangerText: Color(0xFFEF4444),
+    statusDangerBorder: Color(0xFFEF4444),
+    statusDangerSubtle: Color(0xFF260B0B),
+    statusInfoText: Color(0xFF3B82F6),
+    statusInfoBorder: Color(0xFF3B82F6),
+    statusInfoSubtle: Color(0xFF091527),
+    accentBrand: Color(0xFFFFD83F),
+    accentText: Color(0xFFFFD83F),
+    accentHeading: Color(0xFFB8940E),
+    accentFill: Color(0xFFB8940E),
+    accentFillHover: Color(0xFFC5A127),
+    accentFillActive: Color(0xFFD2AD38),
+    accentOnFill: Color(0xFF0A0B10),
+    accentBorder: Color(0xFFFFD83F),
+    accentOutline: Color(0xFFFFD83F),
+    accentLabel: Color(0xFFFFD83F),
+    accentEdge: Color(0xFFFFD83F),
+    accentSubtle: Color(0xFF29230A),
+  );
+  static const light = OpenNetworkPalette(
+    surfaceBase: Color(0xFFF1F1F1),
+    surfaceRaised: Color(0xFFFFFFFF),
+    surfaceSunken: Color(0xFFEBEBEB),
+    surfaceOverlay: Color(0xFFFFFFFF),
+    textPrimary: Color(0xFF000000),
+    textSecondary: Color(0xFF666666),
+    textTertiary: Color(0xFF6A6A6A),
+    borderSubtle: Color(0xFFDEDEDE),
+    borderControl: Color(0xFF767676),
+    borderStrong: Color(0xFF4D4D4D),
+    focusRing: Color(0xFF000000),
+    statusSuccessText: Color(0xFF007740),
+    statusSuccessBorder: Color(0xFF009B55),
+    statusSuccessSubtle: Color(0xFFDAEBE2),
+    statusWarningText: Color(0xFF896100),
+    statusWarningBorder: Color(0xFFB07E00),
+    statusWarningSubtle: Color(0xFFEFE7D4),
+    statusDangerText: Color(0xFFC60D21),
+    statusDangerBorder: Color(0xFFEF4444),
+    statusDangerSubtle: Color(0xFFF1DCDC),
+    statusInfoText: Color(0xFF1760D1),
+    statusInfoBorder: Color(0xFF3B82F6),
+    statusInfoSubtle: Color(0xFFDBE4F2),
+    accentBrand: Color(0xFFFFD83F),
+    accentText: Color(0xFF7E6800),
+    accentHeading: Color(0xFFA48300),
+    accentFill: Color(0xFFFFD83F),
+    accentFillHover: Color(0xFFFFE796),
+    accentFillActive: Color(0xFFFFF6D4),
+    accentOnFill: Color(0xFF0A0B10),
+    accentBorder: Color(0xFFA08400),
+    accentOutline: Color(0xFFA08400),
+    accentLabel: Color(0xFF7E6800),
+    accentEdge: Color(0xFFFFD83F),
+    accentSubtle: Color(0xFFF3EEDC),
+  );
 }
 
 abstract final class OpenNetworkSpacing {
+  static const zero = 0.0;
   static const one = 4.0;
   static const two = 8.0;
   static const three = 12.0;
@@ -26,23 +163,67 @@ abstract final class OpenNetworkSpacing {
   static const six = 24.0;
   static const eight = 32.0;
   static const twelve = 48.0;
+  static const sixteen = 64.0;
+  static const twentyFour = 96.0;
 }
 
 abstract final class OpenNetworkRadii {
   static const sm = 6.0;
-  static const md = 10.0;
-  static const lg = 16.0;
-  static const pill = 999.0;
+  static const md = 8.0;
+  static const lg = 12.0;
+  static const xl = 20.0;
+  static const xxl = 25.0;
+  static const pill = 9999.0;
+}
+
+abstract final class OpenNetworkSizes {
+  static const targetMin = 44.0;
+  static const controlMd = 48.0;
+  static const controlLg = 60.0;
+  static const field = 70.0;
+  static const icon = 24.0;
+  static const iconMd = 30.0;
+  static const brand = 32.0;
+  static const dockTile = 56.0;
 }
 
 abstract final class OpenNetworkTypography {
-  static const fontFamily = <String>['Inter', 'system-ui', 'sans-serif'];
-  static const monoFamily = <String>[
-    'JetBrains Mono',
-    'ui-monospace',
-    'monospace',
-  ];
-  static const bodySize = 14.0;
-  static const bodyLineHeight = 1.45;
-  static const headingSize = 24.0;
+  static const fontFamily = <String>['IBM Plex Sans', 'sans-serif'];
+  static const viewportMin = 320.0;
+  static const viewportMax = 1440.0;
+  static const displayMin = 40.0;
+  static const displayMax = 76.0;
+  static const displayLeading = 1.06;
+  static const h1Min = 34.0;
+  static const h1Max = 64.0;
+  static const h1Leading = 1.1;
+  static const h2Min = 28.0;
+  static const h2Max = 48.0;
+  static const h2Leading = 1.15;
+  static const h3Min = 22.0;
+  static const h3Max = 32.0;
+  static const h3Leading = 1.22;
+  static const h4Min = 19.0;
+  static const h4Max = 24.0;
+  static const h4Leading = 1.3;
+  static const bodyLgMin = 18.0;
+  static const bodyLgMax = 20.0;
+  static const bodyLgLeading = 1.55;
+  static const bodyMin = 16.0;
+  static const bodyMax = 18.0;
+  static const bodyLeading = 1.6;
+  static const labelMin = 13.0;
+  static const labelMax = 14.0;
+  static const labelLeading = 1.4;
+  static const captionMin = 12.0;
+  static const captionMax = 12.0;
+  static const captionLeading = 1.3;
+  static const weightRegular = 400.0;
+  static const weightMedium = 500.0;
+  static const weightSemibold = 600.0;
+}
+
+abstract final class OpenNetworkMotion {
+  static const uiFast = 150.0;
+  static const ui = 250.0;
 }
