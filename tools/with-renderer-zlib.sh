@@ -6,12 +6,12 @@ test "$#" -gt 0
 renderer_dir=$(mktemp -d)
 trap 'rm -rf -- "$renderer_dir"' EXIT
 curl --fail --silent --show-error --location --retry 2 --max-time 60 \
-  --max-filesize 2097152 https://github.com/madler/zlib/releases/download/v1.3.1/zlib-1.3.1.tar.gz \
+  --max-filesize 2097152 https://github.com/madler/zlib/releases/download/v1.3.2/zlib-1.3.2.tar.gz \
   --output "$renderer_dir/source.tar.gz"
-echo "9a93b2b7dfdac77ceba5a558a580e74667dd6fede4585b91eefb60f03b72df23  $renderer_dir/source.tar.gz" | sha256sum --check -
+echo "bb329a0a2cd0274d05519d61c667c062e06990d72e125ee2dfa8de64f0119d16  $renderer_dir/source.tar.gz" | sha256sum --check -
 tar -xf "$renderer_dir/source.tar.gz" -C "$renderer_dir"
 if ! (
-  cd "$renderer_dir/zlib-1.3.1"
+  cd "$renderer_dir/zlib-1.3.2"
   timeout 60 ./configure --prefix="$renderer_dir/prefix"
   timeout 120 make -j4
   timeout 60 make check
